@@ -4,6 +4,6 @@ public class MainWorker : IWorker
 {
     public async Task Run()
     {
-        throw new NotImplementedException();
+        Console.WriteLine("Run");
     }
 }

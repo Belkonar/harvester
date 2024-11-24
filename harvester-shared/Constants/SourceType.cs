@@ -1,6 +1,6 @@
 namespace harvester_shared.Constants;
 
-public class SourceType
+public static class SourceType
 {
-    
+    public const string Postgres = "pg";
 }

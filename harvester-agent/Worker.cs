@@ -6,21 +6,16 @@ public class Worker(ILogger<Worker> logger, MainWorker worker) : BackgroundServi
 {
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        if (false) // flag for long execution mode
+        while (!stoppingToken.IsCancellationRequested)
         {
-            while (!stoppingToken.IsCancellationRequested)
+            if (logger.IsEnabled(LogLevel.Information))
             {
-                if (logger.IsEnabled(LogLevel.Information))
-                {
-                    logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
-
-                await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
+                logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
             }
-        }
-        else
-        {
+
             await worker.Run();
+
+            await Task.Delay(TimeSpan.FromMinutes(5), stoppingToken);
         }
     }
 }

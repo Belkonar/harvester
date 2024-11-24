@@ -8,4 +8,13 @@ builder.Services.AddSingleton<MainWorker>();
 builder.Services.AddHostedService<Worker>();
 
 var host = builder.Build();
-host.Run();
+
+if (builder.Configuration.GetValue<bool>("LongTerm", false))
+{
+    host.Run();
+}
+else
+{
+    var worker = host.Services.GetRequiredService<MainWorker>();
+    await worker.Run();
+}
