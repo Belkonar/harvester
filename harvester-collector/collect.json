@@ -1,6 +1,0 @@
-{
-  "command": "collect",
-  "commandOptions": {},
-  "sourceType": "pg",
-  "sourceOptions": {}
-}
