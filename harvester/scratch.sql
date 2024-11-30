@@ -22,3 +22,29 @@ from generate_series(1, 3000000) s(i);
 
 SELECT COUNT(id)
 from arr;
+
+DROP table if exists hte;
+CREATE TABLE hte
+(
+    id  TEXT primary key,
+    bag HSTORE
+);
+
+CREATE INDEX idx_hte on hte USING GIN (bag);
+
+INSERT INTO hte (id, bag)
+VALUES ('i', hstore('a', 'b'));
+INSERT INTO hte (id, bag)
+VALUES ('j', hstore('a', NULL));
+
+WITH Vals(n) AS (SELECT * FROM generate_series(1, 1000000))
+INSERT
+INTO hte (
+  SELECT n AS Id, hstore('a=>'||n||', b=>'||n) AS Values FROM Vals
+);
+
+EXPLAIN
+ANALYZE
+SELECT *
+FROM hte
+WHERE bag @ > hstore('a', NULL);

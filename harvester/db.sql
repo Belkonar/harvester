@@ -1,3 +1,15 @@
+DROP TABLE IF EXISTS data_field;
+CREATE TABLE data_field
+(
+    name          TEXT,
+    data_source   UUID,
+    data_table    TEXT,
+    specifiers    HSTORE,
+    category      UUID,
+    category_list UUID[], -- the whole tree
+    PRIMARY KEY (data_source, data_table, name)
+);
+
 DROP TABLE IF EXISTS category;
 CREATE TABLE category
 (
@@ -16,15 +28,6 @@ CREATE TABLE specifier
     options TEXT[]
 );
 
-DROP TABLE IF EXISTS data_field;
-CREATE TABLE data_field
-(
-    name        TEXT,
-    data_source UUID,
-    data_table  TEXT,
-    PRIMARY KEY (data_source, data_table, name)
-);
-
 DROP TABLE IF EXISTS data_table;
 CREATE TABLE data_table
 (
@@ -39,15 +42,22 @@ CREATE TABLE data_source
     id       UUID PRIMARY KEY,
     name     TEXT,
     info_bag JSONB,
-    opts     HSTORE,
     local    BOOL NOT NULL
 );
+
+CREATE INDEX idx_field_specifiers on data_field USING GIN (specifiers);
+CREATE INDEX idx_field_category_list on data_field USING GIN (category_list);
 
 -- FKs go in this format for consistency
 ALTER TABLE category
     ADD CONSTRAINT fk_category_specifier
         FOREIGN KEY (specifier)
             REFERENCES specifier (id);
+
+ALTER TABLE data_field
+    ADD CONSTRAINT fk_field_category
+        FOREIGN KEY (category)
+            REFERENCES category (id);
 
 ALTER TABLE data_table
     ADD CONSTRAINT fk_data_table_source
