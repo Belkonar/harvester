@@ -1,6 +1,6 @@
 using System.Text.Json.Serialization;
 
-namespace harvester_shared.Models;
+namespace harvester_agent.Models;
 
 public class CollectorRequest
 {

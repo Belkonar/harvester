@@ -1,10 +1,12 @@
-using harvester_shared.Models;
+using harvester_agent.Models;
 using Npgsql;
 
 namespace harvester_agent.Lang;
 
-public class LangPostgres(CollectorRequest request) : LangBase(request)
+public class LangPostgres : ILang
 {
+    public CollectorRequest? Request { get; set; }
+
     // Query Templates
     const string DbListQuery =
         """
@@ -49,14 +51,14 @@ public class LangPostgres(CollectorRequest request) : LangBase(request)
         return returnVal;
     }
 
-    public override async Task Collect()
+    public async Task Collect()
     {
         var databases = await GetDatabases();
 
         databases.ForEach(Console.WriteLine);
     }
 
-    public override Task Sample()
+    public Task Sample()
     {
         throw new NotImplementedException();
     }

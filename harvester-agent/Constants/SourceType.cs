@@ -1,4 +1,4 @@
-namespace harvester_shared.Constants;
+namespace harvester_agent.Constants;
 
 public static class SourceType
 {

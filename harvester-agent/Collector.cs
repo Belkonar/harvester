@@ -1,16 +1,16 @@
 using System.Text.Json;
+using harvester_agent.Constants;
 using harvester_agent.Lang;
-using harvester_shared.Constants;
-using harvester_shared.Models;
+using harvester_agent.Models;
 
 namespace harvester_agent;
 
 public class Collector(IServiceProvider provider)
 {
-    public async Task Run()
+    public async Task Run(CollectorRequest request)
     {
-        var request = provider.GetRequiredService<CollectorRequest>();
-        var lang = provider.GetRequiredKeyedService<LangBase>(request.SourceType);
+        var lang = provider.GetRequiredKeyedService<ILang>(request.SourceType);
+        lang.Request = request;
 
         switch (request.Command)
         {
@@ -23,28 +23,5 @@ public class Collector(IServiceProvider provider)
             default:
                 throw new Exception($"Command {request.Command} is not valid");
         }
-    }
-
-    public static CollectorRequest? GetRequest()
-    {
-        using var sr = new StreamReader(Console.OpenStandardInput(), Console.InputEncoding);
-        var input = (sr.ReadToEnd()).Trim();
-
-        try
-        {
-            return JsonSerializer.Deserialize<CollectorRequest>(input);
-        }
-        catch (JsonException e)
-        {
-            Console.WriteLine(e);
-            Environment.Exit(1);
-        }
-        catch (Exception e)
-        {
-            Console.WriteLine(e);
-            Environment.Exit(10);
-        }
-
-        return null;
     }
 }

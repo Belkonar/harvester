@@ -1,8 +1,7 @@
 using harvester_agent;
+using harvester_agent.Constants;
 using harvester_agent.Lang;
 using harvester_agent.Workers;
-using harvester_shared.Constants;
-using harvester_shared.Models;
 
 var builder = Host.CreateApplicationBuilder(args);
 
@@ -12,12 +11,11 @@ builder.Services.AddHostedService<Worker>();
 
 builder.Services.AddSingleton<Collector>();
 
-builder.Services.AddSingleton<CollectorRequest>((_ => Collector.GetRequest()!));
-
-builder.Services.AddKeyedSingleton<LangBase, LangPostgres>(SourceType.Postgres);
+builder.Services.AddKeyedSingleton<ILang, LangPostgres>(SourceType.Postgres);
 
 var host = builder.Build();
 
+// Either this runs the host in LongTerm mode or it runs as a container
 if (builder.Configuration.GetValue<bool>("LongTerm", false))
 {
     host.Run();
