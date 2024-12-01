@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "harvester", "harvester\harv
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "harvester-shared", "harvester-shared\harvester-shared.csproj", "{DF34F890-A3B8-411A-B364-C205F744E7CA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "datagen", "datagen\datagen.csproj", "{0049B994-D573-4B19-94BC-1BF4E51C08EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +38,9 @@ Global
 		{DF34F890-A3B8-411A-B364-C205F744E7CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DF34F890-A3B8-411A-B364-C205F744E7CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DF34F890-A3B8-411A-B364-C205F744E7CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

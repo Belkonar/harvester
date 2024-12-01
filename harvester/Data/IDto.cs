@@ -1,6 +1,8 @@
+using Npgsql;
+
 namespace harvester.Data;
 
-public interface IDto<T>
+public interface IDto<out T>
 {
-    static abstract T Map();
+    static abstract T Map(NpgsqlDataReader reader);
 }
