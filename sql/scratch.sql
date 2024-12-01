@@ -7,17 +7,16 @@ CREATE TABLE arr
 
 CREATE INDEX idx_test on arr USING GIN (ars);
 INSERT INTO arr (id, ars)
-VALUES ('71365997-718e-48da-8b1b-545178dcc4ba', ARRAY['71365997-718e-48da-8b1b-545178dcc4ba']::UUID[]);
+VALUES ('71365997-718e-48da-8b1b-545178dcc4ba', ARRAY ['71365997-718e-48da-8b1b-545178dcc4ba']::UUID[]);
 
-EXPLAIN
-ANALYZE
+EXPLAIN ANALYZE
 SELECT *
 FROM arr
-WHERE ars @ > ARRAY['71365997-718e-48da-8b1b-545178dcc4ba']::UUID[];
+WHERE ars @ > ARRAY ['71365997-718e-48da-8b1b-545178dcc4ba']::UUID[];
 
 insert into arr (id, ars)
 select gen_random_uuid(),
-       ARRAY[gen_random_uuid()] ::UUID[]
+       ARRAY [gen_random_uuid()] ::UUID[]
 from generate_series(1, 3000000) s(i);
 
 SELECT COUNT(id)
@@ -39,12 +38,15 @@ VALUES ('j', hstore('a', NULL));
 
 WITH Vals(n) AS (SELECT * FROM generate_series(1, 1000000))
 INSERT
-INTO hte (
-  SELECT n AS Id, hstore('a=>'||n||', b=>'||n) AS Values FROM Vals
-);
+INTO hte (SELECT n AS Id, hstore('a=>' || n || ', b=>' || n) AS Values
+          FROM Vals);
 
-EXPLAIN
-ANALYZE
+EXPLAIN ANALYZE
 SELECT *
 FROM hte
 WHERE bag @ > hstore('a', NULL);
+
+EXPLAIN ANALYZE
+SELECT (parentage ->> 'categories')::UUID[] || id         as categories,
+       (parentage ->> 'specifiers')::UUID[] || specifiers as specifiers
+FROM category;
