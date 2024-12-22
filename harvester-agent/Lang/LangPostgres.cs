@@ -1,4 +1,5 @@
 using harvester_agent.Models;
+using harvester_shared.Models;
 using Npgsql;
 
 namespace harvester_agent.Lang;
@@ -51,13 +52,13 @@ public class LangPostgres : ILang
         return returnVal;
     }
 
-    public async Task<List<ScannedTable>> Collect()
+    public async Task<ScanResults> Collect()
     {
         var databases = await GetDatabases();
 
         databases.ForEach(Console.WriteLine);
 
-        return [];
+        return new ScanResults();
     }
 
     public Task Sample()
