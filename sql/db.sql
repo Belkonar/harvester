@@ -5,12 +5,13 @@ CREATE TABLE tag
     is_field BOOLEAN
 );
 
-DROP TABLE IF EXISTS data_field;
+DROP TABLE IF EXISTS data_field CASCADE;
 CREATE TABLE data_field
 (
     name        TEXT,
     data_source UUID,
     data_table  TEXT,
+    types       TEXT[],
     nonce       UUID,
     is_subfield BOOLEAN,
     category    UUID,
@@ -95,3 +96,21 @@ BEGIN
 
 END;
 $$;
+
+CREATE OR REPLACE FUNCTION get_fields_tmp(
+    p_page_size INT,
+    p_page_number INT
+)
+    RETURNS SETOF data_field
+AS
+$$
+BEGIN
+    RETURN QUERY
+        SELECT df.*
+        FROM data_field df
+        ORDER BY df.data_source, df.data_table, df.name
+        LIMIT p_page_size OFFSET (p_page_number - 1) * p_page_size;
+END;
+$$ LANGUAGE plpgsql;
+
+SELECT get_fields_tmp(10, 1)

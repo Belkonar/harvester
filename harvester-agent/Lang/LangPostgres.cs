@@ -10,13 +10,13 @@ public class LangPostgres : ILang
     // Query Templates
     const string DbListQuery =
         """
-        SELECT datname FROM pg_database 
+        SELECT datname FROM pg_database
         WHERE datistemplate = false AND datname != 'postgres'
         """;
 
     private const string GetColsQuery =
         """
-        SELECT "table_schema", "table_name", "column_name", "data_type" 
+        SELECT "table_schema", "table_name", "column_name", "data_type"
         FROM information_schema.columns WHERE table_catalog != 'postgres';
         """;
 
@@ -51,11 +51,13 @@ public class LangPostgres : ILang
         return returnVal;
     }
 
-    public async Task Collect()
+    public async Task<List<ScannedTable>> Collect()
     {
         var databases = await GetDatabases();
 
         databases.ForEach(Console.WriteLine);
+
+        return [];
     }
 
     public Task Sample()

@@ -17,6 +17,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "harvester-shared", "harvest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "datagen", "datagen\datagen.csproj", "{0049B994-D573-4B19-94BC-1BF4E51C08EC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "harvester-parsers", "harvester-parsers\harvester-parsers.csproj", "{8E78B1A0-EBA9-4D1F-8DF0-0E686B607C3C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "harvester-parsers-tests", "harvester-parsers-tests\harvester-parsers-tests.csproj", "{10C7FAE5-AD65-4C36-BC6A-31282F242B04}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -42,5 +46,13 @@ Global
 		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0049B994-D573-4B19-94BC-1BF4E51C08EC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8E78B1A0-EBA9-4D1F-8DF0-0E686B607C3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8E78B1A0-EBA9-4D1F-8DF0-0E686B607C3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8E78B1A0-EBA9-4D1F-8DF0-0E686B607C3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8E78B1A0-EBA9-4D1F-8DF0-0E686B607C3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{10C7FAE5-AD65-4C36-BC6A-31282F242B04}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{10C7FAE5-AD65-4C36-BC6A-31282F242B04}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{10C7FAE5-AD65-4C36-BC6A-31282F242B04}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{10C7FAE5-AD65-4C36-BC6A-31282F242B04}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
